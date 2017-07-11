@@ -57,11 +57,13 @@ function timer() {
 			rest = false;
 			work = true;
 			count = workTime;
+			$('#timer').css("background", "#dd6700");
 	 	} else if (work == true) {
 			alarm.play();
 			rest = true;
 			work = false;
 			count = breakTime;
+			$('#timer').css("background", "#95c623");
 		}
 		showTime()
 		return;
