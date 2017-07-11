@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pomodoro Timer</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+	<div id="wrapper">
+	<h1>Productivity Timer</h1>
+	<!--<div id="control-wrapper">-->
+		<div id="work" class="time-wrapper">
+			<span class="label">Work Time</span><br/>
+			<button class="sm-btn" id="wktimeminus">-</button>
+			<span class="time" id="workTime"></span>
+			<button class="sm-btn" id="wktimeplus">+</button>
+		</div>
+		<div id="break" class="time-wrapper">
+			<span class="label">Break Time</span><br/>
+			<button class="sm-btn" id="bktimeminus">-</button>
+			<span class="time" id="breakTime"></span>
+			<button class="sm-btn" id="bktimeplus">+</button>
+		</div>
+	<!--/div>-->
+	<div id="timer"></div>
+	<button id="start">Start</button>
+</div>
+</body>
+<script src="script.js"></script>
+</html>
