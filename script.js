@@ -1,11 +1,12 @@
+//Ian's script
+
 var workTime = 1500;
 var breakTime = 300;
-var stop = 3;
 var count = workTime;
 var interval;
 var work = false;
 var rest = false;
-var gap = false;
+var paused = false;
 var tick_tock = false;
 var alarm = new Audio('whistle.mp3');
 
@@ -35,8 +36,10 @@ function startTime() {
 		count = workTime;
 	} else if (tick_tock == true) {
 		tick_tock = false;
+		paused = true;
 		clearTimeout(interval);
 		$('#start').text("Resume");
+		$('#title').text("Pomodoro Timer Paused");
 		return;
 	} 
     $('#start').text("Pause");
@@ -77,9 +80,22 @@ function timer() {
 function showTime() {
 	var minutes = Math.floor(count / 60);
 	var seconds = count % 60;
+	var descriptor = "";
 	if (seconds < 10) {
 		seconds = "0" + seconds;
 	}
+
+	if (tick_tock == true) {
+		if (work == true) {
+			descriptor = "Work time!";
+		} else if (rest == true) {
+			descriptor = "Break!";
+		} else {
+			descriptor = "";
+		}
+		$('#title').text(minutes + ":" + seconds + " " + descriptor);
+	}
+
 	$('#timer').text(minutes + ":" + seconds);
 }
 
@@ -87,11 +103,11 @@ function setWork(param) {
 	if (param == "plus") {
 		workTime += 60;
 	} else if (param == "minus") {
-	if (workTime - 60 == 0) {
-		alert("Cannot set a timer for 0 minutes, bro.")
-		return;
-	}
-	workTime -= 60;
+		if (workTime - 60 == 0) {
+			alert("Cannot set a timer for 0 minutes, bro.")
+			return;
+		}
+		workTime -= 60;
 	}
 	var w = workTime / 60;
 	if (w < 10) {
@@ -102,11 +118,18 @@ function setWork(param) {
 	if (tick_tock == false) {
 		count = workTime;
 		showTime();
-	$('#start').text("Start");
+		work = true;
+		rest = false;
+		$('#start').text("Start");
+		$('#timer').css("background", "#dd6700");
 	}
 }
 
 function setBreak(param) {
+  if (tick_tock == false && rest == true) {
+  	alert("Sorry, I won't let you mod your break time during your break.")
+  	return;
+  }
   if (param == "plus") {
     breakTime += 60;
   } else if (param == "minus") {
